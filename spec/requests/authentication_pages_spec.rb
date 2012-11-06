@@ -72,8 +72,8 @@ describe "Authentication" do
               sign_in user
             end
 
-            it "should not render the original protected page" do
-              page.should_not have_title('Edit user')
+            it "should render the default (profile) page" do
+              page.should have_title(user.name)
             end
           end
         end
