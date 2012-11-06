@@ -87,6 +87,24 @@ describe "Authentication" do
       end
     end
 
+    describe "for signed-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+      before { sign_in user }
+
+      describe "in the Users controller" do
+
+        describe "visiting the signup page" do
+          before { visit signup_path }
+          it { should_not have_title('Sign up') }
+        end
+
+        describe "submitting to the create action" do
+          before { post users_path }
+          specify { response.should redirect_to(root_url) }
+        end
+      end
+    end
+
     describe "as wrong user" do
       let(:user) { FactoryGirl.create(:user) }
       let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
