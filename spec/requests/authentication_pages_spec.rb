@@ -65,6 +65,17 @@ describe "Authentication" do
           it "should render the desired protected page" do
             page.should have_selector('title', text: 'Edit user')
           end
+
+          describe "after signing out and back in" do
+            before do
+              click_link "Sign out"
+              sign_in user
+            end
+
+            it "should not render the original protected page" do
+              page.should_not have_title('Edit user')
+            end
+          end
         end
       end
 
