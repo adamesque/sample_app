@@ -31,6 +31,15 @@ describe "StaticPages" do
           page.should have_selector("li##{item.id}", text: item.content)
         end
       end
+
+      it "should say how many microposts the user has made" do
+        page.should have_content("2 microposts")
+      end
+
+      describe "pluralization" do
+        before { click_link 'delete' }
+        it { should_not have_content("1 microposts") }
+      end
     end
   end
 
