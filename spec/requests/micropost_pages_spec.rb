@@ -41,5 +41,16 @@ describe "MicropostPages" do
         expect { click_link "delete" }.to change(Micropost, :count).by(-1)
       end
     end
+
+    describe "when viewing another user's posts" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      let!(:m1) { FactoryGirl.create(:micropost, user: another_user) }
+
+      before do
+        visit user_path(another_user)
+      end
+
+      it { should_not have_link('delete', href: micropost_path(m1)) }
+    end
   end
 end
