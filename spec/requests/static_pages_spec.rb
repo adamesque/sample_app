@@ -40,6 +40,15 @@ describe "StaticPages" do
         before { click_link 'delete' }
         it { should_not have_content("1 microposts") }
       end
+
+      describe "pagination" do
+        before(:all) do
+          29.times { FactoryGirl.create(:micropost, user: user) }
+          visit root_path
+        end
+
+        it { should have_selector('div.pagination') }
+      end
     end
   end
 
